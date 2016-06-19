@@ -1,6 +1,6 @@
 {
   "name": "RabbitMQ for Beginners",
   "tagline": "RabbitMQ Introduction and Examples",
-  "body": "### Welcome to RabbitMQ for Beginners Pages.\r\nThis page is created for a presentation of [Wierd Developer Meetup in Melbourne](http://www.meetup.com/Weird-Developers-Melbourne/events/231588280) as a lightining talk.\r\n\r\nPlease click to see [**the slide**](https://github.com/AlexSangJoonPark/rabbitmq/slide)!\r\n",
+  "body": "### Welcome to RabbitMQ for Beginners Pages.\r\nThis page is created for a presentation of [Wierd Developer Meetup in Melbourne](http://www.meetup.com/Weird-Developers-Melbourne/events/231588280) as a lightining talk.\r\n\r\nPlease click to see [**the slide**](https://alexsangjoonpark.github.io/rabbitmq/slide)!\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
