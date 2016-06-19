@@ -30,7 +30,6 @@
 	<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
-
 </head>
 
 <body>
@@ -45,10 +44,130 @@
 				</p>
 			</section>
 
-			<section>
+			<section data-transition="slide" data-background="https://aphyr.com/data/posts/315/RabbitMQ.sh-600x600.png" data-background-size="50%" data-background-transition="zoom">
 				<h2>Rabbit MQ?</h2>
+				<blockquote cite="https://en.wikipedia.org/wiki/RabbitMQ">
+					&ldquo;RabbitMQ is an open source message broker software (sometimes called message-oriented middleware) that implements the Advanced Message Queuing Protocol (AMQP)&rdquo;
+				</blockquote>
+				<p></p>
+				<p></p>
+			</section>
+
+			<section>
+				<section>
+					<h2>AMQP</h2>
+					<h2>&</h2>
+					<h2>Implementations</h2>
+					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
+						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
+					</blockquote>
+				</section>
+				<section>
+					<h2>AMQP</h2>
+					<p></p>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>7 Key Concepts</h2>
+				</section>
+				<section>
+					<h2>1. Virtual Hosts</h2>
+					<p>Virtual Host is a concept to run multiple hosts in a server.</p>
+					<p>Default is empty host name.</p>
+				</section>
+				<section>
+					<h2>2. Exchanges</h2>
+					<p>Exchange is bla bla</p>
+				</section>
+				<section>
+					<h2>3. Exchanges Types</h2>
+					<p>Exchange Types is bla bla</p>
+				</section>
+				<section>
+					<h2>4. Queues</h2>
+					<p>Queue is bla bla</p>
+				</section>
+				<section>
+					<h2>5. Binding</h2>
+					<p>Binding is bla bla</p>
+				</section>
+				<section>
+					<h2>6. Routing Key</h2>
+					<p>Routing key is bla bla</p>
+				</section>
+				<section>
+					<h2>7. Publisher and Consumer</h2>
+					<p>Publisher is bla bla</p>
+					<p>Consumer is bla bla</p>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>4 Exchange Types</h2>
+					<p>There are 4 Exchange Types when we bind with Queues</p>
+				</section>
+				<section>
+					<h2>1. Direct</h2>
+					<p>Direct is bla bla</p>
+				</section>
+				<section>
+					<h2>2. Fanout</h2>
+					<p>Fanout is bla bla</p>
+				</section>
+				<section>
+					<h2>3. Topic</h2>
+					<p>Topic is bla bla</p>
+				</section>
+				<section>
+					<h2>4. Headers</h2>
+					<p>Headers is bla bla</p>
+				</section>
+			</section>
+
+			<section>
+				<h2>Persistance</h2>
 
 			</section>
+
+			<section>
+				<h2>Transaction</h2>
+
+			</section>
+
+			<section>
+				<h2>Prefetch Count</h2>
+				<p></p>
+			</section>
+
+			<section>
+				<h2>Error Handling</h2>
+				<p>Dead Letter Queue</p>
+			</section>
+
+			<section>
+				<h2>Demo</h2>
+				<p></p>
+			</section>
+
+			<section>
+				<h2>RabbitMQ Simulator</h2>
+				<p><a href="http://tryrabbitmq.com/" target="_blank">http://tryrabbitmq.com/</a></p>
+			</section>
+
+			<section>
+				<h2>Q & A</h2>
+				<p></p>
+			</section>
+
+			<section>
+				<h2>Thank You!</h2>
+				<p></p>
+			</section>
+
 		</div>
 	</div>
 
@@ -64,34 +183,13 @@
 			center: true,
 			transition: 'convex', // none/fade/slide/convex/concave/zoom
 			// More info https://github.com/hakimel/reveal.js#dependencies
-			dependencies: [				{
-					src: 'lib/js/classList.js',
-					condition: function() {
-						return !document.body.classList;
-					}
-				}, {
-					src: 'plugin/markdown/marked.js',
-					condition: function() {
-						return !!document.querySelector('[data-markdown]');
-					}
-				}, {
-					src: 'plugin/markdown/markdown.js',
-					condition: function() {
-						return !!document.querySelector('[data-markdown]');
-					}
-				}, {
-					src: 'plugin/highlight/highlight.js',
-					async: true,
-					callback: function() {
-						hljs.initHighlightingOnLoad();
-					}
-				}, {
-					src: 'plugin/zoom-js/zoom.js',
-					async: true
-				}, {
-					src: 'plugin/notes/notes.js',
-					async: true
-				}
+			dependencies: [
+				{ src: 'lib/js/classList.js',	condition: function() {	return !document.body.classList; }},
+				{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]');}},
+				{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]');}},
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad();}},
+				{ src: 'plugin/zoom-js/zoom.js', async: true },
+				{ src: 'plugin/notes/notes.js', async: true }
 			]
 		});
 	</script>
