@@ -55,23 +55,36 @@
 
 			<section>
 				<section>
-					<h2>AMQP</h2>
-					<h2>&</h2>
-					<h2>Implementations</h2>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
+					<h2>Advanced Message Queuing Protocol (AMQP)?</h2>
+					<blockquote cite="https://www.amqp.org/product/overview">
+						&ldquo;“AMQP is an open Internet (or “wire”) Protocol standard for message-queuing communications.”&rdquo;
 					</blockquote>
+					<img src="https://www.amqp.org/sites/amqp.org/files/servers.png">
 				</section>
 				<section>
-					<h2>AMQP</h2>
-					<p></p>
+						<h2>AMQP 1.0 Implementations</h2>
+						<p>https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol</p>
+						<ul cite="https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol">
+							<li>RabbitMQ : an open-source project sponsored by Pivotal</li>
+							<li>SwiftMQ : a JMS, AMQP broker (free and commercial)</li>
+							<li>Windows Azure Service Bus : Microsoft's cloud-based</li>
+							<li>Apache Qpid : an open-source Apache project</li>
+							<li>Apache ActiveMQ : an open-source Apache project</li>
+							<li>Apache Apollo : open-source modified ActiveMQ project</li>
+							<li>IBM MQ Light</li>
+							<li>AMQP.NET Lite : a C# AMQP 1.0 implementation</li>
+						</ul>
+				</section>
+				<section>
+						<h2>AMQP Message Structure</h2>
+						<img src="http://blog.springsource.com/wp-content/uploads/2010/06/rabbit-message.png">
 				</section>
 			</section>
 
 			<section>
 				<section>
 					<h2>7 Key Concepts</h2>
+					<img src="http://blog.springsource.com/wp-content/uploads/2010/06/rabbit-basics.png">
 				</section>
 				<section>
 					<h2>1. Virtual Hosts</h2>
@@ -107,24 +120,51 @@
 
 			<section>
 				<section>
+					<h2>Features</h2>
+					<p>https://www.rabbitmq.com/features.html</p>
+				</section>
+				<section>
+					<h2>1. Virtual Hosts</h2>
+					<p>Virtual Host is a concept to run multiple hosts in a server.</p>
+					<p>Default is empty host name.</p>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Plugins</h2>
+				</section>
+				<section>
+					<h2>1. Management Plugin</h2>
+					<p>HTTP-based API for management and monitoring</p>
+					<pre><code class="hljs">sudo rabbitmq-plugins enable rabbitmq_management</code></pre>
+					<pre><code class="hljs">sudo service rabbitmq-server restart</code></pre>
+					<pre><code class="hljs">http://localhost:15672 (id:guest, pw:guest)</code></pre>
+
+				</section>
+			</section>
+
+
+			<section>
+				<section>
 					<h2>4 Exchange Types</h2>
 					<p>There are 4 Exchange Types when we bind with Queues</p>
 				</section>
 				<section>
 					<h2>1. Direct</h2>
-					<p>Direct is bla bla</p>
+					<img src="http://lostechies.com/derekgreer/files/2012/03/DirectExchange_thumb1.png">
 				</section>
 				<section>
 					<h2>2. Fanout</h2>
-					<p>Fanout is bla bla</p>
+					<img src="http://lostechies.com/derekgreer/files/2012/03/FanoutExchange_thumb2.png">
 				</section>
 				<section>
 					<h2>3. Topic</h2>
-					<p>Topic is bla bla</p>
+					<img src="http://lostechies.com/derekgreer/files/2012/03/TopicExchange_thumb2.png">
 				</section>
 				<section>
 					<h2>4. Headers</h2>
-					<p>Headers is bla bla</p>
+					<img src="http://lostechies.com/derekgreer/files/2012/03/HeadersExchange_thumb2.png">
 				</section>
 			</section>
 
@@ -146,6 +186,53 @@
 			<section>
 				<h2>Error Handling</h2>
 				<p>Dead Letter Queue</p>
+			</section>
+
+			<section>
+				<section>
+					<h2>Examples : Javascript codes</h2>
+					<p>prerequisites</p>
+					<pre>Install NodeJS</pre>
+					<pre><code class="hljs">$ npm install amqplib</code></pre>
+				</section>
+				<section>
+					<h2>Examples</h2>
+					<p>send.js</p>
+					<pre><code class="hljs" data-trim contenteditable>
+var amqp = require('amqplib/callback_api');
+
+amqp.connect('amqp://localhost', function(err, conn) {
+  conn.createChannel(function(err, ch) {
+    var q = 'hello';
+    var msg = 'Hello World!';
+
+    ch.assertQueue(q, {durable: false});
+    ch.sendToQueue(q, new Buffer(msg));
+    console.log(" [x] Sent %s", msg);
+  });
+  setTimeout(function() { conn.close(); process.exit(0) }, 500);
+});
+					</code></pre>
+				</section>
+				<section>
+					<h2>Examples</h2>
+					<p>receive.js</p>
+					<pre><code class="hljs" data-trim contenteditable>
+var amqp = require('amqplib/callback_api');
+
+amqp.connect('amqp://localhost', function(err, conn) {
+  conn.createChannel(function(err, ch) {
+    var q = 'hello';
+
+    ch.assertQueue(q, {durable: false});
+    console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
+    ch.consume(q, function(msg) {
+      console.log(" [x] Received %s", msg.content.toString());
+    }, {noAck: true});
+  });
+});
+					</code></pre>
+				</section>
 			</section>
 
 			<section>
