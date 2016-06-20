@@ -14,7 +14,7 @@
 	<title>RabbitMQ Intro presented by Alex Park</title>
 
 	<link rel="stylesheet" href="css/reveal.css">
-	<link rel="stylesheet" href="css/theme/beige.css">
+	<link rel="stylesheet" href="css/theme/blood.css">
 
 	<!-- Theme used for syntax highlighting of code -->
 	<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -35,22 +35,94 @@
 <body>
 	<div class="reveal">
 		<div class="slides">
-			<section>
+			<section data-transition="slide" data-background="" data-background-size="100%" data-background-transition="zoom">
 				<h1>Rabbit MQ Intro</h1>
 				<h3>A Robust Message System</h3>
 				<h3>Weird Developer Meetup in Melbourne</h3>
 				<p>
-					<small>Presented by <a href="http://github.com/AlexSangJoonPark/rabbitmq">Alex Park</a> on June 21, 2016</small>
+					<small>Presented by <a href="http://github.com/AlexSangJoonPark/rabbitmq">Alex Park(박상준)</a> on June 21, 2016</small>
 				</p>
 			</section>
 
-			<section data-transition="slide" data-background="https://aphyr.com/data/posts/315/RabbitMQ.sh-600x600.png" data-background-size="50%" data-background-transition="zoom">
-				<h2>Rabbit MQ?</h2>
-				<blockquote cite="https://en.wikipedia.org/wiki/RabbitMQ">
-					&ldquo;RabbitMQ is an open source message broker software (sometimes called message-oriented middleware) that implements the Advanced Message Queuing Protocol (AMQP)&rdquo;
-				</blockquote>
-				<p></p>
-				<p></p>
+			<section>
+				<section data-transition="slide" data-background="https://assets.entrepreneur.com/content/16x9/822/20141230193127-work.jpeg" data-background-size="100%" data-background-transition="zoom">
+					<h2>Prolog</h2>
+
+					<h3>당신은 실력있는 호주 개발자</h3>
+					<h3>에자일 팀에서 Cloudy App개발중</h3>
+					<h3>미국 기상청 정보 연동 요구사항 개발 시작</h3>
+
+				</section>
+				<section data-transition="slide" data-background="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTNpa9siz-dwjnS-2uM-mUfhk8Fn4z0z1HM2Wzufrvdps5rwmJA" data-background-size="100%" data-background-transition="zoom">
+					<h2>다음날</h2>
+
+					<h3>어제 미국 기상 서비스 연동 구현 완료</h3>
+					<h3>개발 서버에서 단위 테스트 중</h3>
+					<h3>테스트 성공!</h3>
+
+				</section>
+				<section data-transition="slide" data-background="https://solutioneers.files.wordpress.com/2011/09/large-stand-up.jpg?w=1200" data-background-size="100%" data-background-transition="zoom">
+					<h2>그 다음날</h2>
+
+					<h3>테스트가 내 티켓을 가지고 가서 자기 아바타를 붙입니다</h3>
+					<h3>테스트 서버에서 통합 테스트 중...</h3>
+					<h3>테스터는 한두번 버튼 눌러보고 패스</h3>
+					<h3>통합테스트 패스!!</h3>
+
+				</section>
+				<section data-transition="slide" data-background="https://s3.amazonaws.com/applause-devmktg/2015/12/02/7y0wydb4uh_Live_300x300.jpg" data-background-size="100%" data-background-transition="zoom">
+					<h2>그그 다음날</h2>
+					<h3>구현 카드가 완료 구역</h3>
+					<h3>Production에 배포</h3>
+					<h3>PM의 당신 호감도 +1</h3>
+
+				</section>
+				<section data-transition="slide" data-background="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQaUzG8b6X-vsGgCWWeFXyMKAgVrZsu2gzOyWKHGojvhHQjLhwm" data-background-size="100%" data-background-transition="zoom">
+					<h2>그그그 다음날</h2>
+					<h3>아침에 PM에게 메일이 와있습니다.</h3>
+					<h3>정보 연동이 잘 안되는거 같으니 확인해보랍니다.</h3>
+					<h3>PM의 당신 호감도 -5</h3>
+				</section>
+				<section>
+					<h2>무엇이 문제일까요?</h2>
+					<h3 class="fragment">구현 모듈 버그?</h3>
+					<h3 class="fragment">미국 서비스의 다운?</h3>
+					<h3 class="fragment">네트워크 속도?</h3>
+					<h3 class="fragment">TTL?</h3>
+				</section>
+				<section>
+					<h2>해결방안?</h2>
+					<h3 class="fragment">에러 핸들링 : 오류시 재호출</h3>
+					<h3 class="fragment">비동기방식 구현 : DB에 요청 데이터 저장 후 다른일 처리</h3>
+					<h3 class="fragment">비동기방식 구현 : DB에 데이터 읽어 서비스 요청 후 결과 DB업데이트</h3>
+					<h3 class="fragment">비동기방식 구현 : DB 테이블 주기적으로 읽어 갱신정보 display(poll/push)</h3>
+				</section>
+				<section>
+					<h2>나이스한 해결방안?</h2>
+					<h1 class="fragment">비동기방식 구현 : <br>메시징 서비스 이용</h1>
+				</section>
+			</section>
+
+			<section>
+				<section data-transition="slide" data-background="https://aphyr.com/data/posts/315/RabbitMQ.sh-600x600.png" data-background-size="80%" data-background-transition="zoom">
+					<h2>Rabbit MQ?</h2>
+					<blockquote cite="https://en.wikipedia.org/wiki/RabbitMQ">
+						&ldquo;RabbitMQ is an open source message broker software (sometimes called message-oriented middleware) that implements the Advanced Message Queuing Protocol (AMQP)&rdquo;
+					</blockquote>
+					<p><a href="https://en.wikipedia.org/wiki/RabbitMQ" target="_blank">https://en.wikipedia.org/wiki/RabbitMQ</a></p>
+				</section>
+				<section data-transition="slide" data-background="https://aphyr.com/data/posts/315/RabbitMQ.sh-600x600.png" data-background-size="80%" data-background-transition="zoom">
+					<h2>Rabbit MQ?</h2>
+					<ul>
+						<li>Robust messaging for applications</li>
+						<li>Easy to use</li>
+						<li>Runs on all major operating systems</li>
+						<li>Supports a huge number of developer platforms</li>
+						<li>Open source and commercially supported</li>
+					</ul>
+					<p><a href="https://www.rabbitmq.com/" target="_blank">https://www.rabbitmq.com/</a></p>
+				</section>
+
 			</section>
 
 			<section>
@@ -77,115 +149,222 @@
 				</section>
 				<section>
 						<h2>AMQP Message Structure</h2>
-						<img src="http://blog.springsource.com/wp-content/uploads/2010/06/rabbit-message.png">
+						<img src="http://blog.springsource.com/wp-content/uploads/2010/06/rabbit-message.png" width="30%">
 				</section>
 			</section>
 
 			<section>
 				<section>
-					<h2>7 Key Concepts</h2>
+					<h2>Key Concepts</h2>
 					<img src="http://blog.springsource.com/wp-content/uploads/2010/06/rabbit-basics.png">
 				</section>
 				<section>
-					<h2>1. Virtual Hosts</h2>
-					<p>Virtual Host is a concept to run multiple hosts in a server.</p>
-					<p>Default is empty host name.</p>
+					<h2>1. Publisher and Consumer</h2>
+					<p><img src="https://www.rabbitmq.com/img/tutorials/producer.png">Publisher is a program that sends messages.</p>
+					<p><img src="https://www.rabbitmq.com/img/tutorials/consumer.png">Consumer is a program that mostly waits to receive messages.</p>
 				</section>
 				<section>
-					<h2>2. Exchanges</h2>
-					<p>Exchange is bla bla</p>
+					<h2>2. Queues</h2>
+					<p>A queue is the name for a mailbox.</p>
+					<p>It can store as many messages as you like ‒ it's essentially an infinite buffer.</p>
+					<img src="https://www.rabbitmq.com/img/tutorials/queue.png">
 				</section>
 				<section>
-					<h2>3. Exchanges Types</h2>
-					<p>Exchange Types is bla bla</p>
+					<h2>3. Exchanges</h2>
+					<p>Producers can only send messages to an exchange. An exchange on one side it receives messages from producers and the other side it pushes them to queues.</p>
+					<img src="https://www.rabbitmq.com/img/tutorials/exchanges.png">
 				</section>
 				<section>
-					<h2>4. Queues</h2>
-					<p>Queue is bla bla</p>
+					<h2>4. Exchanges Types</h2>
+					<ul>
+						<li>Direct</li>
+						<li>Fanout</li>
+						<li>Topic</li>
+						<li>Headers</li>
+					</ul>
+					<img src="http://oriolrius.cat/blog/wp-content/uploads/2012/03/amqp-schema02.png">
 				</section>
 				<section>
 					<h2>5. Binding</h2>
-					<p>Binding is bla bla</p>
+					<p>Relationship between Exchange and Queue</p>
+					<img src="https://www.rabbitmq.com/img/tutorials/bindings.png">
 				</section>
 				<section>
 					<h2>6. Routing Key</h2>
-					<p>Routing key is bla bla</p>
+					<p>routing_key is an extra parameter for binding</p>
+					<pre><code class="hljs" data-trim contenteditable>
+channel.queue_bind(exchange=exchange_name,
+         queue=queue_name,
+         routing_key='black')
+			    </code></pre>
+					<img src="https://www.rabbitmq.com/img/tutorials/python-four.png">
 				</section>
 				<section>
-					<h2>7. Publisher and Consumer</h2>
-					<p>Publisher is bla bla</p>
-					<p>Consumer is bla bla</p>
-				</section>
-			</section>
-
-			<section>
-				<section>
-					<h2>Features</h2>
-					<p>https://www.rabbitmq.com/features.html</p>
-				</section>
-				<section>
-					<h2>1. Virtual Hosts</h2>
+					<h2>7. Virtual Hosts</h2>
 					<p>Virtual Host is a concept to run multiple hosts in a server.</p>
-					<p>Default is empty host name.</p>
+					<img src="http://farm4.static.flickr.com/3349/3634123474_298f4f3e6e_o.png" width="60%">
+					<p><a href="https://www.rabbitmq.com/access-control.html" target="_blank">Access Control (Authentication, Authorisation)</a></p>
 				</section>
 			</section>
 
 			<section>
 				<section>
-					<h2>Plugins</h2>
+					<h2>RabbitMQ Features</h2>
+					<p><a href="https://www.rabbitmq.com/features.html" target="_blank">https://www.rabbitmq.com/features.html</a></p>
 				</section>
 				<section>
-					<h2>1. Management Plugin</h2>
+					<h2>Reliability</h2>
+					<p>RabbitMQ offers a variety of features to let you trade off performance with reliability, including persistence, delivery acknowledgements, publisher confirms, and high availability.</p>
+				</section>
+				<section>
+					<h2>Flexible Routing</h2>
+					<p>Messages are routed through exchanges before arriving at queues. RabbitMQ features several built-in exchange types for typical routing logic. For more complex routing you can bind exchanges together or even write your own exchange type as a plugin.</p>
+				</section>
+				<section>
+					<h2>Clustering</h2>
+					<p>Several RabbitMQ servers on a local network can be clustered together, forming a single logical broker.</p>
+					<p><a href="https://www.rabbitmq.com/clustering.html" target="_blank">Clustring Guide</a></p>
+				</section>
+				<section>
+					<h2>Federation</h2>
+					<p>For servers that need to be more loosely and unreliably connected than clustering allows, RabbitMQ offers a federation model.</p>
+					<p><a href="https://www.rabbitmq.com/federation.html" target="_blank">Federation Plugin</a></p>
+				</section>
+				<section>
+					<h2>Highly Available Queues</h2>
+					<p>Queues can be mirrored across several machines in a cluster, ensuring that even in the event of hardware failure your messages are safe.</p>
+					<p><a href="https://www.rabbitmq.com/ha.html" target="_blank">HA Queues</a></p>
+				</section>
+				<section>
+					<h2>Multi-protocol</h2>
+					<p>RabbitMQ supports messaging over a variety of messaging protocols.</p>
+					<p><a href="https://www.rabbitmq.com/protocols.html" target="_blank">AMQP, STOMP, MQTT, HTTP</a></p>
+				</section>
+				<section>
+					<h2>Many Clients</h2>
+					<p>There are RabbitMQ clients for almost any language you can think of.</p>
+					<p><a href="https://www.rabbitmq.com/devtools.html" target="_blank">Supporting Languages</a></p>
+				</section>
+				<section>
+					<h2>Management UI</h2>
+					<p>RabbitMQ ships with an easy-to use management UI that allows you to monitor and control every aspect of your message broker.</p>
+					<p><a href="https://www.rabbitmq.com/management.html" target="_blank">Management Plugin</a></p>
+					<img src="https://www.rabbitmq.com/img/management/overview.png" width="50%">
+				</section>
+				<section>
+					<h2>Tracing</h2>
+					<p>If your messaging system is misbehaving, RabbitMQ offers tracing support to let you find out what's going on.</p>
+					<p><a href="https://www.rabbitmq.com/firehose.html" target="_blank">Firehose Tracer</a></p>
+				</section>
+				<section>
+					<h2>Plugin System</h2>
+					<p>RabbitMQ ships with a variety of plugins extending it in different ways, and you can also write your own.</p>
+					<p><a href="https://www.rabbitmq.com/plugins.html" target="_blank">Plugins</a></p>
+					<p><a href="https://www.rabbitmq.com/plugin-development.html" target="_blank">Plugin Development Guide</a></p>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Web Admin Console - Management Plugin</h2>
 					<p>HTTP-based API for management and monitoring</p>
 					<pre><code class="hljs">sudo rabbitmq-plugins enable rabbitmq_management</code></pre>
 					<pre><code class="hljs">sudo service rabbitmq-server restart</code></pre>
 					<pre><code class="hljs">http://localhost:15672 (id:guest, pw:guest)</code></pre>
-
+					<p>"guest" user can only connect via localhost</p>
+					<img src="https://raw.githubusercontent.com/wiki/jlazic/GlogSMS/images/sms_rabbitmq-1.png">
 				</section>
 			</section>
 
 
 			<section>
 				<section>
-					<h2>4 Exchange Types</h2>
+					<h2>Exchange Types</h2>
 					<p>There are 4 Exchange Types when we bind with Queues</p>
 				</section>
 				<section>
 					<h2>1. Direct</h2>
 					<img src="http://lostechies.com/derekgreer/files/2012/03/DirectExchange_thumb1.png">
+					<p>routes messages with a routing key equal to the same routing key</p>
 				</section>
 				<section>
 					<h2>2. Fanout</h2>
 					<img src="http://lostechies.com/derekgreer/files/2012/03/FanoutExchange_thumb2.png">
+					<p>routes messages to all bound queues</p>
 				</section>
 				<section>
 					<h2>3. Topic</h2>
 					<img src="http://lostechies.com/derekgreer/files/2012/03/TopicExchange_thumb2.png">
+					<p>routes messages to queues whose routing key matches all, or a portion of a routing key</p>
+					<p>asterisk (“*”) to match a word in a specific position of the routing key</p>
+					<p>hash (“#”) to match zero or more words</p>
 				</section>
 				<section>
 					<h2>4. Headers</h2>
 					<img src="http://lostechies.com/derekgreer/files/2012/03/HeadersExchange_thumb2.png">
+					<p>routes messages based upon a matching of message headers to the expected headers specified by the binding queue</p>
+					<p>When the "x-match" argument is set to "any", just one matching header value is sufficient</p>
+					<p>When the "x-match" argument is set to "all", all the values must match</p>
 				</section>
 			</section>
 
 			<section>
-				<h2>Persistance</h2>
+				<h2>Message properties</h2>
+				<p>The AMQP protocol predefines a set of 14 properties that are rarely used, with the exception of the following:</p>
+				<ul>
+					<li><strong>persistent</strong>: Marks a message as persistent (with a value of true) or transient (false). You may remember this property from the second tutorial.</li>
+					<li><strong>content_type</strong>: Used to describe the mime-type of the encoding. For example for the often used JSON encoding it is a good practice to set this property to: application/json.</li>
+					<li><strong>reply_to</strong>: Commonly used to name a callback queue.</li>
+					<li><strong>correlation_id</strong>: Useful to correlate RPC responses with requests.</li>
+				</ul>
+			</section>
 
+			<section>
+				<h2>Persistance</h2>
+				<p>3 conditions for persisting messages in Rabbit MQ</p>
+				<ol>
+					<li>Mark the exchange “durable:true”</li>
+					<li>Mark the queue “durable:true”</li>
+					<li>Set the message’s “delivery mode” to a value of 2 (persistent:true)</li>
+				</ol>
+				<p>* RabbitMQ server restart will remove the data without these options</p>
 			</section>
 
 			<section>
 				<h2>Transaction</h2>
-
+				<p><a href="https://www.rabbitmq.com/confirms.html" target="_blank">Confirms and Guaranteed Delivery</a></p>
+				<p>the only way to guarantee that a message isn't lost is by using transactions</p>
+				<p>ACK vs NACK</p>
 			</section>
 
 			<section>
-				<h2>Prefetch Count</h2>
-				<p></p>
+				<h2>Consumer Prefetch</h2>
+				<p><a href="https://www.rabbitmq.com/consumer-prefetch.html" target="_blank">Consumer Prefetch</a></p>
+				<p>limit the number of unacknowledged messages on a channel (or connection) when consuming (aka "prefetch count")</p>
+				<p>Example (java)</p>
+				<pre><code class="hljs" data-trim contenteditable>
+Channel channel = ...;
+Consumer consumer1 = ...;
+Consumer consumer2 = ...;
+channel.basicQos(10, false); // Per consumer limit
+channel.basicQos(15, true);  // Per channel limit
+channel.basicConsume("my-queue1", false, consumer1);
+channel.basicConsume("my-queue2", false, consumer2);
+				</code></pre>
+				<p>These two consumers will only ever have 15 unacknowledged messages between them, with a maximum of 10 messages for each consumer.</p>
 			</section>
 
 			<section>
 				<h2>Error Handling</h2>
-				<p>Dead Letter Queue</p>
+				<p><a href="https://www.rabbitmq.com/dlx.html" target="_blank">DLX(Dead Letter Exchange)</a></p>
+				<p>Messages from a queue can be 'dead-lettered'</p>
+				<ul>
+					<li>The message is rejected (basic.reject or basic.nack) with requeue=false</li>
+					<li>The TTL for the message expires</li>
+					<li>The queue length limit is exceeded.</li>
+				</ul>
+				<p>a DLX can be defined by clients using the queue's arguments, or in the server using policies</p>
+				<p><a href="https://www.rabbitmq.com/parameters.html#policies" target="_blank">Policies</a></p>
 			</section>
 
 			<section>
@@ -198,6 +377,7 @@
 				<section>
 					<h2>Examples</h2>
 					<p>send.js</p>
+					<img src="https://www.rabbitmq.com/img/tutorials/sending.png">
 					<pre><code class="hljs" data-trim contenteditable>
 var amqp = require('amqplib/callback_api');
 
@@ -217,6 +397,7 @@ amqp.connect('amqp://localhost', function(err, conn) {
 				<section>
 					<h2>Examples</h2>
 					<p>receive.js</p>
+					<img src="https://www.rabbitmq.com/img/tutorials/receiving.png">
 					<pre><code class="hljs" data-trim contenteditable>
 var amqp = require('amqplib/callback_api');
 
@@ -237,22 +418,23 @@ amqp.connect('amqp://localhost', function(err, conn) {
 
 			<section>
 				<h2>Demo</h2>
-				<p></p>
+				<img src="http://codeincomplete.com/posts/2014/9/3/soa_using_amqp/rabbitmq_tutorials.v228.png">
 			</section>
 
 			<section>
 				<h2>RabbitMQ Simulator</h2>
 				<p><a href="http://tryrabbitmq.com/" target="_blank">http://tryrabbitmq.com/</a></p>
+				<img src="http://blogs.vmware.com/vfabric/files/2013/03/a_rabbitmq_simulator_1920x1080.jpg" width="50%">
 			</section>
 
-			<section>
-				<h2>Q & A</h2>
+			<section data-transition="slide" data-background="https://media.licdn.com/mpr/mpr/AAEAAQAAAAAAAAGSAAAAJDI3ZDJiYTgzLWNjYzUtNGQwOS05OGQ5LWFlNDlhN2Y1NzQwOQ.jpg" data-background-size="100%" data-background-transition="zoom">
+				<h2></h2>
 				<p></p>
 			</section>
 
 			<section>
 				<h2>Thank You!</h2>
-				<p></p>
+				<img src="http://ichef.bbci.co.uk/childrens-responsive-ichef/r/640/1x/cbeebies/peter-rabbit_onward_journey_image_bid.png">
 			</section>
 
 		</div>
